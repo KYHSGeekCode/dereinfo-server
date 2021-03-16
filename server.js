@@ -16,8 +16,20 @@ app.get('/game', (req, res) => {
 });
 
 app.get('/game/:id', (req, res) => {
-    const games = db.Game.findAll({where: {id: req.params.id}}).then(games =>
+    db.Game.findAll({where: {id: req.params.id}}).then(games =>
         res.send(games)
+    )
+});
+
+app.get('/game/:id/songs', (req, res) => {
+    db.Song.findAll({where: {GameId: req.params.id}}).then(songs =>
+        res.send(songs)
+    )
+});
+
+app.get('/song/:id', (req, res) => {
+    db.Song.findAll({where: {id: req.params.id}}).then(songs =>
+        res.send(songs)
     )
 });
 
