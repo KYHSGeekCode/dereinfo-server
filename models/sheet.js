@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Sheet.belongsTo(models.Song);
+      Sheet.belongsTo(models.Difficulty);
     }
   };
   Sheet.init({

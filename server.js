@@ -33,6 +33,11 @@ app.get('/song/:id', (req, res) => {
     )
 });
 
+app.get('/song/:id/:difficulty', (req, res) => {
+    db.Sheet.findAll({where: {SongId: req.params.id, DifficultyId: req.params.difficulty}}).then(sheet =>
+        res.send(sheet)
+    )
+});
 
 app.listen(port, () => {
     console.log(`server is listening at localhost:${port}`);
