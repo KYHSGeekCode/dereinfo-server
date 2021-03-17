@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   PullRequest.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    closed: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'PullRequest',
