@@ -46,15 +46,15 @@ app.get('/song/:id/:difficulty', (req, res) => {
 
 app.post('/song', jsonParser, (req, res) => {
     db.Game.findAll({where: {name: req.body.game}}).then(game => {
-        const song = db.Song.create({
+        db.Song.create({
             name: req.body.name,
             active: false,
             metadata: req.body.metadata,
             GameId: game[0]['id']
-        });
-        res.send(song.id);
+        }).then(song =>
+            res.send("" + song.id)
+        )
     })
-
 });
 
 app.listen(port, () => {
