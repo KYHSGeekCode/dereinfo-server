@@ -8,6 +8,16 @@ app.use(bodyParser.json({type: 'application/*+json'}));
 
 const jsonParser = bodyParser.json();
 
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+
 app.get('/', (req, res) => {
     res.json({
         success: true,
@@ -58,6 +68,10 @@ app.post('/song', jsonParser, (req, res) => {
 });
 
 app.post('/sheet', jsonParser, (req, res) => {
+    if (!IsJsonString(req.body.data)) {
+        res.sendStatus(400);
+        return;
+    }
     db.Difficulty.findAll({where: {name: req.body.difficulty}}).then(difficulty => {
         db.Sheet.create({
             data: req.body.data,
