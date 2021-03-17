@@ -57,6 +57,19 @@ app.post('/song', jsonParser, (req, res) => {
     })
 });
 
+app.post('/sheet', jsonParser, (req, res) => {
+    db.Difficulty.findAll({where: {name: req.body.difficulty}}).then(difficulty => {
+        db.Sheet.create({
+            data: req.body.data,
+            active: false,
+            DifficultyId: difficulty[0].id,
+            SongId: req.body.SongId
+        }).then(sheet =>
+            res.send("" + sheet.id)
+        )
+    })
+});
+
 app.listen(port, () => {
     console.log(`server is listening at localhost:${port}`);
 });
